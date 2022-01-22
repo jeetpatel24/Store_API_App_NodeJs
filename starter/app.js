@@ -2,11 +2,18 @@
 require('dotenv').config();
 
 
+//async errors -  either use try snd catch in controllers/products or use async errors
+//it automatically catch errors and generate error response for them
+require('express-async-errors')
+
+
+
 const express = require('express');
 const app = express();
 
 
 const connectDB = require('./db/connect');
+const productsRouter = require('./routes/products')
 
 
 const notFoundMiddleware = require('./middleware/not-found');
@@ -20,6 +27,7 @@ app.get('/', (req, res)=> {
     res.send('<h1>Store API</h1><a href="api/v1/products">products route</a>');
 })
 
+app.use('/api/v1/products', productsRouter);
 
 //products route
 
